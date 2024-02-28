@@ -78,81 +78,105 @@ public class Department {
     }
 
     public void printAllStudentsAlphabetically() {
-        Person[] students = new Person[addedMembersCount];
-        int studentsCount = 0;
-        for (int i = 0; i < addedMembersCount; i++) {
-            if (members[i].getPersonType().equals("Student") && members[i] != null) {
-                students[studentsCount++] = members[i];
+        if (addedMembersCount == 0) {
+            System.out.println("No students");
+        } else {
+            Person[] students = new Person[addedMembersCount];
+            int studentsCount = 0;
+            for (int i = 0; i < addedMembersCount; i++) {
+                if (members[i].getPersonType().equals("Student") && members[i] != null) {
+                    students[studentsCount++] = members[i];
+                }
             }
-        }
-        sortArrayAlphabetically(students);
-        for (int i = 0; i < studentsCount; i++) {
-            if (students[i] != null) {
-                System.out.println(students[i]);
+            sortArrayAlphabetically(students);
+            for (int i = 0; i < studentsCount; i++) {
+                if (students[i] != null) {
+                    System.out.println(students[i]);
+                }
             }
         }
     }
 
     public void printAllTeachersAlphabetically() {
-        Person[] teachers = new Person[addedMembersCount];
-        int teachersCount = 0;
-        for (int i = 0; i < addedMembersCount; i++) {
-            if (members[i].getPersonType().equals("Teacher") && members[i] != null) {
-                teachers[teachersCount++] = members[i];
+        if (addedMembersCount == 0) {
+            System.out.println("No teachers");
+        } else {
+            Person[] teachers = new Person[addedMembersCount];
+            int teachersCount = 0;
+            for (int i = 0; i < addedMembersCount; i++) {
+                if (members[i].getPersonType().equals("Teacher") && members[i] != null) {
+                    teachers[teachersCount++] = members[i];
+                }
             }
-        }
-        sortArrayAlphabetically(teachers);
-        for (int i = 0; i < teachersCount; i++) {
-            if (teachers[i] != null) {
-                System.out.println(teachers[i]);
+            sortArrayAlphabetically(teachers);
+            for (int i = 0; i < teachersCount; i++) {
+                if (teachers[i] != null) {
+                    System.out.println(teachers[i]);
+                }
             }
         }
     }
 
     public void printAllStudentsOfCourse(int course) {
-        for (int i = 0; i < addedMembersCount; i++) {
-            if (members[i].getPersonType().equals("Student") && ((Student) members[i]).getCourse() == course && members[i] != null) {
-                System.out.println(members[i]);
+        if (addedMembersCount == 0) {
+            System.out.println("No students");
+        } else {
+            for (int i = 0; i < addedMembersCount; i++) {
+                if (members[i].getPersonType().equals("Student") && ((Student) members[i]).getCourse() == course && members[i] != null) {
+                    System.out.println(members[i]);
+                }
             }
         }
     }
 
     public void printAllStudentsByCourse() {
-        Person[] students = new Person[addedMembersCount];
-        int studentsCount = 0;
-        for (int i = 0; i < addedMembersCount; i++) {
-            if (members[i].getPersonType().equals("Student") && members[i] != null) {
-                students[studentsCount++] = members[i];
+        if (addedMembersCount == 0) {
+            System.out.println("No students");
+        } else {
+            Person[] students = new Person[addedMembersCount];
+            int studentsCount = 0;
+            for (int i = 0; i < addedMembersCount; i++) {
+                if (members[i].getPersonType().equals("Student") && members[i] != null) {
+                    students[studentsCount++] = members[i];
+                }
             }
-        }
-        sortArrayByCourse(students);
-        for (int i = 0; i < studentsCount; i++) {
-            if (students[i] != null) {
-                System.out.println(students[i]);
+            sortArrayByCourse(students);
+            for (int i = 0; i < studentsCount; i++) {
+                if (students[i] != null) {
+                    System.out.println(students[i]);
+                }
             }
         }
     }
 
     public void printAllStudentsOfCourseAlphabetically(int course) {
-        Person[] students = new Person[addedMembersCount];
-        int studentsCount = 0;
-        for (int i = 0; i < addedMembersCount; i++) {
-            if (members[i].getPersonType().equals("Student") && ((Student) members[i]).getCourse() == course && members[i] != null) {
-                students[studentsCount++] = members[i];
+        if (addedMembersCount == 0) {
+            System.out.println("No students");
+        } else {
+            Person[] students = new Person[addedMembersCount];
+            int studentsCount = 0;
+            for (int i = 0; i < addedMembersCount; i++) {
+                if (members[i].getPersonType().equals("Student") && ((Student) members[i]).getCourse() == course && members[i] != null) {
+                    students[studentsCount++] = members[i];
+                }
             }
-        }
-        sortArrayAlphabetically(students);
-        for (int i = 0; i < studentsCount; i++) {
-            if (students[i] != null)
-                System.out.println(students[i]);
+            sortArrayAlphabetically(students);
+            for (int i = 0; i < studentsCount; i++) {
+                if (students[i] != null)
+                    System.out.println(students[i]);
+            }
         }
     }
 
     //Знайти студента/викладача за ПІБ
     public void findMemberByName(String name, String surname, String personType) {
         for (int i = 0; i < addedMembersCount; i++) {
-            if (members[i].getName().equals(name) && members[i].getSurname().equals(surname) && members[i].getPersonType().equals(personType) && members[i] != null) {
-                System.out.println(members[i]);
+            if (members[i].getName().equals(name) && members[i].getSurname().equals(surname) && members[i].getPersonType().equals(personType)) {
+                if (members[i] != null) {
+                    System.out.println(members[i]);
+                } else {
+                    System.out.println("No such member");
+                }
             }
         }
     }
@@ -160,8 +184,11 @@ public class Department {
     //Знайти студента за курсом
     public void findStudentByCourse(int course) {
         for (int i = 0; i < addedMembersCount; i++) {
-            if (members[i].getPersonType().equals("Student") && ((Student) members[i]).getCourse() == course && members[i] != null) {
-                System.out.println(members[i]);
+            if (members[i].getPersonType().equals("Student") && ((Student) members[i]).getCourse() == course) {
+                if (members[i] != null) {
+                    System.out.println(members[i]);
+                }
+                System.out.println("No such student");
             }
         }
     }
@@ -169,8 +196,11 @@ public class Department {
     //Знайти студента/викладача за групою.
     public void findStudentByGroup(int group) {
         for (int i = 0; i < addedMembersCount; i++) {
-            if (members[i].getPersonType().equals("Student") && ((Student) members[i]).getGroup() == group && members[i] != null) {
-                System.out.println(members[i]);
+            if (members[i].getPersonType().equals("Student") && ((Student) members[i]).getGroup() == group) {
+                if (members[i] != null) {
+                    System.out.println(members[i]);
+                }
+                System.out.println("No such student");
             }
         }
     }

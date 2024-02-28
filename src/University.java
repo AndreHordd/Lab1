@@ -100,6 +100,7 @@ public class University {
         for (int i = 0; i < addedFacultiesCount; i++) {
             faculties[i].printAllStudentsByCourse();
         }
+
     }
 
     //Знайти студента/викладача за ПІБ
@@ -121,6 +122,16 @@ public class University {
         for (int i = 0; i < addedFacultiesCount; i++) {
             faculties[i].findStudentByGroup(group);
         }
+    }
+
+    public void printAllFaculties() {
+        StringBuilder res = new StringBuilder();
+        for (int i = 0; i < addedFacultiesCount; i++) {
+            if (faculties[i] != null) {
+                res.append(faculties[i].getName()).append(" ");
+            }
+        }
+        System.out.println(res);
     }
 
 

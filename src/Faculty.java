@@ -120,6 +120,7 @@ public class Faculty {
             }
         }
     }
+
     //Вивести всіх студентів факультета впорядкованих за алфавітом.
     public void printAllStudentsAlphabetically() {
         for (int i = 0; i < addedDepartmentsCount; i++) {
@@ -159,5 +160,15 @@ public class Faculty {
         for (int i = 0; i < addedDepartmentsCount; i++) {
             departments[i].findStudentByGroup(group);
         }
+    }
+
+    public void printAllDepartments() {
+        StringBuilder res = new StringBuilder();
+        for (int i = 0; i < addedDepartmentsCount; i++) {
+            if (departments[i] != null) {
+                res.append(this.departments[i].getName()).append(" ");
+            }
+        }
+        System.out.println(res);
     }
 }
