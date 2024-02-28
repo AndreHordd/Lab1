@@ -15,44 +15,55 @@ public abstract class Person {
      */
     protected String personType; // "Student" або "Teacher"
 
-    /**
-     * Constructor for a person
-     *
-     * @param name       name
-     * @param surname    surname
-     * @param personType person type: "Student" or "Teacher"
-     */
-    public Person(String name, String surname, String personType) {
+    protected Faculty faculty;
+    protected Department department;
+
+    public Person(String name, String surname, Faculty faculty, Department department, String personType) {
         this.name = name;
         this.surname = surname;
+        this.faculty = faculty;
+        this.department = department;
         this.personType = personType;
     }
 
-    /**
-     * Name getter
-     *
-     * @return name
-     */
     public String getName() {
         return name;
     }
 
-    /**
-     * Surname getter
-     *
-     * @return surname
-     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getSurname() {
         return surname;
     }
 
-    /**
-     * Person type getter
-     *
-     * @return person type
-     */
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
     public String getPersonType() {
         return personType;
+    }
+
+    public void setPersonType(String personType) {
+        this.personType = personType;
+    }
+
+    public Faculty getFaculty() {
+        return faculty;
+    }
+
+    public void setFaculty(Faculty faculty) {
+        this.faculty = faculty;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 
     /**
@@ -62,6 +73,6 @@ public abstract class Person {
      */
     @Override
     public String toString() {
-        return name + " " + surname;
+        return name + " " + surname + ", " + personType + ", факультет " + faculty.getName() + ", кафедра " + department.getName();
     }
 }

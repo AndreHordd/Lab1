@@ -9,7 +9,7 @@ public class Student extends Person {
     /**
      * Student's group
      */
-    private String group;
+    private int group;
 
     /**
      * Constructor for a student
@@ -19,46 +19,25 @@ public class Student extends Person {
      * @param course  student's course
      * @param group   student's group
      */
-    public Student(String name, String surname, int course, String group) {
-        super(name, surname, "Student"); // Виклик конструктора базового класу з типом "Student"
+    public Student(String name, String surname, int course, int group, Faculty faculty, Department department) {
+        super(name, surname, faculty, department, "Student"); // Виклик конструктора базового класу з типом "Student"
         this.course = course;
         this.group = group;
     }
 
-
-    /**
-     * Course getter
-     *
-     * @return course
-     */
     public int getCourse() {
         return course;
     }
 
-    /**
-     * Group getter
-     *
-     * @return group
-     */
-    public String getGroup() {
-        return group;
-    }
-
-    /**
-     * Course setter
-     *
-     * @param course course
-     */
     public void setCourse(int course) {
         this.course = course;
     }
 
-    /**
-     * Group setter
-     *
-     * @param group group
-     */
-    public void setGroup(String group) {
+    public int getGroup() {
+        return group;
+    }
+
+    public void setGroup(int group) {
         this.group = group;
     }
 
@@ -69,6 +48,7 @@ public class Student extends Person {
      */
     @Override
     public String toString() {
-        return "Студент: " + name + " " + surname + ", " + course + " курс, група " + group;
+        return "Студент: " + name + " " + surname + ", " + course + " курс, група " + group +
+                ", факультет " + faculty.getName() + ", кафедра " + department.getName();
     }
 }
