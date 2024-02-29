@@ -27,10 +27,10 @@ public class Main {
         System.out.println("\n=-=-=-=-=-=-=-=- Меню -=-=-=-=-=-=-=-=");
         System.out.println("[1] Взаємодіяти з факультетами");
         System.out.println("[2] Взаємодіяти з кафедрами");
-        System.out.println("[4] Взаємодіяти зі студентами/викладачами");
-        System.out.println("[5] Вивести у консоль інформацію");
-        System.out.println("[6] Знайти студента/викладача");
-        System.out.println("[7] Вийти з програми");
+        System.out.println("[3] Взаємодіяти зі студентами/викладачами");
+        System.out.println("[4] Вивести у консоль інформацію");
+        System.out.println("[5] Знайти студента/викладача");
+        System.out.println("[6] Вийти з програми");
     }
 
     private void mainMenuAction() {
@@ -49,16 +49,13 @@ public class Main {
                 departmentMenuAction();
                 break;
             case 3:
-                //todo
-                //membersMenuAction();
+                membersMenuAction();
                 break;
             case 4:
-                //todo
                 informationMenuAction();
                 break;
             case 5:
-                //todo
-                //findMenuAction();
+                findMenuAction();
                 break;
             case 6:
                 System.out.println("Дякуємо за користування програмою");
@@ -189,18 +186,15 @@ public class Main {
             System.out.print("Введіть коректне значення: ");
             departmentMenuAction = DataInput.getInt();
         }
-        String facultyName;
-        Faculty faculty;
         switch (departmentMenuAction) {
             case 1:
                 if (university.getAddedFacultiesCount() <= 0) {
                     System.out.println("Немає факультетів для додавання кафедр");
-                    departmentMenuAction();
                 } else {
                     System.out.println("Наявні факультети:");
                     university.printAllFaculties();
                     System.out.println("Введіть назву факультету");
-                    facultyName = DataInput.getText();
+                    String facultyName = DataInput.getText();
                     while (facultyName == null || facultyName.isEmpty()) {
                         System.out.print("Введіть коректне значення: ");
                         facultyName = DataInput.getText();
@@ -213,7 +207,7 @@ public class Main {
                             facultyName = DataInput.getText();
                         }
                     }
-                    faculty = university.getFaculty(facultyName);
+                    Faculty faculty = university.getFaculty(facultyName);
                     if (faculty.getAddedDepartmentsCount() != 0) {
                         System.out.println("Наявні кафедри:");
                         faculty.printAllDepartments();
@@ -248,12 +242,11 @@ public class Main {
             case 2:
                 if (university.getAddedFacultiesCount() <= 0) {
                     System.out.println("Немає факультетів для зміни кафедр");
-                    departmentMenuAction();
                 } else {
                     System.out.println("Наявні факультети:");
                     university.printAllFaculties();
                     System.out.println("Введіть назву факультету");
-                    facultyName = DataInput.getText();
+                    String facultyName = DataInput.getText();
                     while (facultyName == null || facultyName.isEmpty()) {
                         System.out.print("Введіть коректне значення: ");
                         facultyName = DataInput.getText();
@@ -266,7 +259,7 @@ public class Main {
                             facultyName = DataInput.getText();
                         }
                     }
-                    faculty = university.getFaculty(facultyName);
+                    Faculty faculty = university.getFaculty(facultyName);
                     if (faculty.getAddedDepartmentsCount() <= 0) {
                         System.out.println("Немає кафедр для зміни");
                     } else {
@@ -312,17 +305,16 @@ public class Main {
             case 3:
                 if (university.getAddedFacultiesCount() <= 0) {
                     System.out.println("Немає факультетів для видалення кафедр");
-                    departmentMenuAction();
                 } else {
                     System.out.println("Наявні факультети:");
                     university.printAllFaculties();
                     System.out.println("Введіть назву факультету");
-                    facultyName = DataInput.getText();
+                    String facultyName = DataInput.getText();
                     while (facultyName == null || facultyName.isEmpty()) {
                         System.out.print("Введіть коректне значення: ");
                         facultyName = DataInput.getText();
                     }
-                    faculty = university.getFaculty(facultyName);
+                    Faculty faculty = university.getFaculty(facultyName);
                     while (faculty == null) {
                         System.out.print("Факультет з такою назвою не існує. Введіть іншу назву: ");
                         facultyName = DataInput.getText();
@@ -369,7 +361,6 @@ public class Main {
     }
 
     private void membersMenuAction() {
-        //todo
         printMembersMenu();
         System.out.print("Виберіть дію: ");
         Integer membersMenuAction = DataInput.getInt();
@@ -379,11 +370,445 @@ public class Main {
         }
         switch (membersMenuAction) {
             case 1:
+                if (university.getAddedFacultiesCount() <= 0) {
+                    System.out.println("Немає факультетів для додавання студентів");
+                } else {
+                    System.out.println("Наявні факультети:");
+                    university.printAllFaculties();
+                    System.out.println("Введіть назву факультету");
+                    String facultyName = DataInput.getText();
+                    while (facultyName == null || facultyName.isEmpty()) {
+                        System.out.print("Введіть коректне значення: ");
+                        facultyName = DataInput.getText();
+                    }
+                    while (university.getFaculty(facultyName) == null) {
+                        System.out.print("Факультет з такою назвою не існує. Введіть іншу назву: ");
+                        facultyName = DataInput.getText();
+                        while (facultyName == null || facultyName.isEmpty()) {
+                            System.out.print("Введіть коректне значення: ");
+                            facultyName = DataInput.getText();
+                        }
+                    }
+                    Faculty faculty = university.getFaculty(facultyName);
+                    if (faculty.getAddedDepartmentsCount() <= 0) {
+                        System.out.println("Немає кафедр для додавання студентів");
+                    } else {
+                        System.out.println("Наявні кафедри:");
+                        faculty.printAllDepartments();
+                        System.out.println("Введіть назву кафедри");
+                        String departmentName = DataInput.getText();
+                        while (departmentName == null || departmentName.isEmpty()) {
+                            System.out.print("Введіть коректне значення: ");
+                            departmentName = DataInput.getText();
+                        }
+                        while (faculty.getDepartment(departmentName) == null) {
+                            System.out.print("Кафедра з такою назвою не існує. Введіть іншу назву: ");
+                            departmentName = DataInput.getText();
+                            while (departmentName == null || departmentName.isEmpty()) {
+                                System.out.print("Введіть коректне значення: ");
+                                departmentName = DataInput.getText();
+                            }
+                        }
+                        Department department = faculty.getDepartment(departmentName);
+                        System.out.println("Введіть ім'я студента");
+                        String studentName = DataInput.getText();
+                        while (studentName == null || studentName.isEmpty()) {
+                            System.out.print("Введіть коректне значення: ");
+                            studentName = DataInput.getText();
+                        }
+                        System.out.println("Введіть прізвище студента");
+                        String studentSurname = DataInput.getText();
+                        while (studentSurname == null || studentSurname.isEmpty()) {
+                            System.out.print("Введіть коректне значення: ");
+                            studentSurname = DataInput.getText();
+                        }
+                        System.out.print("Введіть курс студента: ");
+                        Integer studentCourse = DataInput.getInt();
+                        while (studentCourse == null || studentCourse < 1 || studentCourse > 6) {
+                            System.out.print("Введіть коректне значення: ");
+                            studentCourse = DataInput.getInt();
+                        }
+                        System.out.print("Введіть групу студента: ");
+                        Integer studentGroup = DataInput.getInt();
+                        while (studentGroup == null || studentGroup < 1 || studentGroup > 20) {
+                            System.out.print("Введіть коректне значення: ");
+                            studentGroup = DataInput.getInt();
+                        }
+                        department.addMember(new Student(studentName, studentSurname, studentCourse, studentGroup, faculty, department));
+                        System.out.println("Студента " + studentName + " " + studentSurname + " успішно додано");
+                    }
+                }
+                membersMenuAction();
+                break;
             case 2:
+                if (university.getAddedFacultiesCount() <= 0) {
+                    System.out.println("Немає факультетів для додавання викладачів");
+                } else {
+                    System.out.println("Наявні факультети:");
+                    university.printAllFaculties();
+                    System.out.println("Введіть назву факультету");
+                    String facultyName = DataInput.getText();
+                    while (facultyName == null || facultyName.isEmpty()) {
+                        System.out.print("Введіть коректне значення: ");
+                        facultyName = DataInput.getText();
+                    }
+                    while (university.getFaculty(facultyName) == null) {
+                        System.out.print("Факультет з такою назвою не існує. Введіть іншу назву: ");
+                        facultyName = DataInput.getText();
+                        while (facultyName == null || facultyName.isEmpty()) {
+                            System.out.print("Введіть коректне значення: ");
+                            facultyName = DataInput.getText();
+                        }
+                    }
+                    Faculty faculty = university.getFaculty(facultyName);
+                    if (faculty.getAddedDepartmentsCount() <= 0) {
+                        System.out.println("Немає кафедр для додавання викладачів");
+                    } else {
+                        System.out.println("Наявні кафедри:");
+                        faculty.printAllDepartments();
+                        System.out.println("Введіть назву кафедри");
+                        String departmentName = DataInput.getText();
+                        while (departmentName == null || departmentName.isEmpty()) {
+                            System.out.print("Введіть коректне значення: ");
+                            departmentName = DataInput.getText();
+                        }
+                        while (faculty.getDepartment(departmentName) == null) {
+                            System.out.print("Кафедра з такою назвою не існує. Введіть іншу назву: ");
+                            departmentName = DataInput.getText();
+                            while (departmentName == null || departmentName.isEmpty()) {
+                                System.out.print("Введіть коректне значення: ");
+                                departmentName = DataInput.getText();
+                            }
+                        }
+                        Department department = faculty.getDepartment(departmentName);
+                        System.out.println("Введіть ім'я викладача");
+                        String teacherName = DataInput.getText();
+                        while (teacherName == null || teacherName.isEmpty()) {
+                            System.out.print("Введіть коректне значення: ");
+                            teacherName = DataInput.getText();
+                        }
+                        System.out.println("Введіть прізвище викладача");
+                        String teacherSurname = DataInput.getText();
+                        while (teacherSurname == null || teacherSurname.isEmpty()) {
+                            System.out.print("Введіть коректне значення: ");
+                            teacherSurname = DataInput.getText();
+                        }
+                        department.addMember(new Teacher(teacherName, teacherSurname, faculty, department));
+                        System.out.println("Викладача " + teacherName + " " + teacherSurname + " успішно додано");
+                    }
+                }
+                membersMenuAction();
+                break;
             case 3:
+                if (university.getAddedFacultiesCount() <= 0) {
+                    System.out.println("Немає факультетів для видалення студентів");
+                } else {
+                    System.out.println("Наявні факультети:");
+                    university.printAllFaculties();
+                    System.out.println("Введіть назву факультету");
+                    String facultyName = DataInput.getText();
+                    while (facultyName == null || facultyName.isEmpty()) {
+                        System.out.print("Введіть коректне значення: ");
+                        facultyName = DataInput.getText();
+                    }
+                    while (university.getFaculty(facultyName) == null) {
+                        System.out.print("Факультет з такою назвою не існує. Введіть іншу назву: ");
+                        facultyName = DataInput.getText();
+                        while (facultyName == null || facultyName.isEmpty()) {
+                            System.out.print("Введіть коректне значення: ");
+                            facultyName = DataInput.getText();
+                        }
+                    }
+                    Faculty faculty = university.getFaculty(facultyName);
+                    if (faculty.getAddedDepartmentsCount() <= 0) {
+                        System.out.println("Немає кафедр для видалення студентів");
+                    } else {
+                        System.out.println("Наявні кафедри:");
+                        faculty.printAllDepartments();
+                        System.out.println("Введіть назву кафедри");
+                        String departmentName = DataInput.getText();
+                        while (departmentName == null || departmentName.isEmpty()) {
+                            System.out.print("Введіть коректне значення: ");
+                            departmentName = DataInput.getText();
+                        }
+                        while (faculty.getDepartment(departmentName) == null) {
+                            System.out.print("Кафедра з такою назвою не існує. Введіть іншу назву: ");
+                            departmentName = DataInput.getText();
+                            while (departmentName == null || departmentName.isEmpty()) {
+                                System.out.print("Введіть коректне значення: ");
+                                departmentName = DataInput.getText();
+                            }
+                        }
+                        Department department = faculty.getDepartment(departmentName);
+                        if (department.getAddedMembersCount() <= 0) {
+                            System.out.println("Немає студентів для видалення");
+                        } else {
+                            System.out.println("Введіть ім'я студента");
+                            String studentName = DataInput.getText();
+                            while (studentName == null || studentName.isEmpty()) {
+                                System.out.print("Введіть коректне значення: ");
+                                studentName = DataInput.getText();
+                            }
+                            System.out.println("Введіть прізвище студента");
+                            String studentSurname = DataInput.getText();
+                            while (studentSurname == null || studentSurname.isEmpty()) {
+                                System.out.print("Введіть коректне значення: ");
+                                studentSurname = DataInput.getText();
+                            }
+                            if (department.removeMember(studentName, studentSurname, "Student")) {
+                                System.out.println("Студента " + studentName + " " + studentSurname + " успішно видалено");
+                            } else {
+                                System.out.println("Студента з таким ім'ям та прізвищем не існує");
+                            }
+                        }
+                    }
+                }
+                membersMenuAction();
+                break;
             case 4:
+                if (university.getAddedFacultiesCount() <= 0) {
+                    System.out.println("Немає факультетів для видалення викладачів");
+                } else {
+                    System.out.println("Наявні факультети:");
+                    university.printAllFaculties();
+                    System.out.println("Введіть назву факультету");
+                    String facultyName = DataInput.getText();
+                    while (facultyName == null || facultyName.isEmpty()) {
+                        System.out.print("Введіть коректне значення: ");
+                        facultyName = DataInput.getText();
+                    }
+                    while (university.getFaculty(facultyName) == null) {
+                        System.out.print("Факультет з такою назвою не існує. Введіть іншу назву: ");
+                        facultyName = DataInput.getText();
+                        while (facultyName == null || facultyName.isEmpty()) {
+                            System.out.print("Введіть коректне значення: ");
+                            facultyName = DataInput.getText();
+                        }
+                    }
+                    Faculty faculty = university.getFaculty(facultyName);
+                    if (faculty.getAddedDepartmentsCount() <= 0) {
+                        System.out.println("Немає кафедр для видалення викладачів");
+                    } else {
+                        System.out.println("Наявні кафедри:");
+                        faculty.printAllDepartments();
+                        System.out.println("Введіть назву кафедри");
+                        String departmentName = DataInput.getText();
+                        while (departmentName == null || departmentName.isEmpty()) {
+                            System.out.print("Введіть коректне значення: ");
+                            departmentName = DataInput.getText();
+                        }
+                        while (faculty.getDepartment(departmentName) == null) {
+                            System.out.print("Кафедра з такою назвою не існує. Введіть іншу назву: ");
+                            departmentName = DataInput.getText();
+                            while (departmentName == null || departmentName.isEmpty()) {
+                                System.out.print("Введіть коректне значення: ");
+                                departmentName = DataInput.getText();
+                            }
+                        }
+                        Department department = faculty.getDepartment(departmentName);
+                        if (department.getAddedMembersCount() <= 0) {
+                            System.out.println("Немає викладачів для видалення");
+                        } else {
+                            System.out.println("Введіть ім'я викладача");
+                            String teacherName = DataInput.getText();
+                            while (teacherName == null || teacherName.isEmpty()) {
+                                System.out.print("Введіть коректне значення: ");
+                                teacherName = DataInput.getText();
+                            }
+                            System.out.println("Введіть прізвище викладача");
+                            String teacherSurname = DataInput.getText();
+                            while (teacherSurname == null || teacherSurname.isEmpty()) {
+                                System.out.print("Введіть коректне значення: ");
+                                teacherSurname = DataInput.getText();
+                            }
+                            if (department.removeMember(teacherName, teacherSurname, "Teacher")) {
+                                System.out.println("Викладача " + teacherName + " " + teacherSurname + " успішно видалено");
+                            } else {
+                                System.out.println("Викладача з таким ім'ям та прізвищем не існує");
+                            }
+                        }
+                    }
+                }
+                membersMenuAction();
+                break;
             case 5:
+                if (university.getAddedFacultiesCount() <= 0) {
+                    System.out.println("Немає факультетів для зміни студентів");
+                } else {
+                    System.out.println("Наявні факультети:");
+                    university.printAllFaculties();
+                    System.out.println("Введіть назву факультету");
+                    String facultyName = DataInput.getText();
+                    while (facultyName == null || facultyName.isEmpty()) {
+                        System.out.print("Введіть коректне значення: ");
+                        facultyName = DataInput.getText();
+                    }
+                    while (university.getFaculty(facultyName) == null) {
+                        System.out.print("Факультет з такою назвою не існує. Введіть іншу назву: ");
+                        facultyName = DataInput.getText();
+                        while (facultyName == null || facultyName.isEmpty()) {
+                            System.out.print("Введіть коректне значення: ");
+                            facultyName = DataInput.getText();
+                        }
+                    }
+                    Faculty faculty = university.getFaculty(facultyName);
+                    if (faculty.getAddedDepartmentsCount() <= 0) {
+                        System.out.println("Немає кафедр для зміни студентів");
+                    } else {
+                        System.out.println("Наявні кафедри:");
+                        faculty.printAllDepartments();
+                        System.out.println("Введіть назву кафедри");
+                        String departmentName = DataInput.getText();
+                        while (departmentName == null || departmentName.isEmpty()) {
+                            System.out.print("Введіть коректне значення: ");
+                            departmentName = DataInput.getText();
+                        }
+                        while (faculty.getDepartment(departmentName) == null) {
+                            System.out.print("Кафедра з такою назвою не існує. Введіть іншу назву: ");
+                            departmentName = DataInput.getText();
+                            while (departmentName == null || departmentName.isEmpty()) {
+                                System.out.print("Введіть коректне значення: ");
+                                departmentName = DataInput.getText();
+                            }
+                        }
+                        Department department = faculty.getDepartment(departmentName);
+                        if (department.getAddedMembersCount() <= 0) {
+                            System.out.println("Немає студентів для зміни");
+                        } else {
+                            System.out.println("Введіть ім'я студента");
+                            String studentName = DataInput.getText();
+                            while (studentName == null || studentName.isEmpty()) {
+                                System.out.print("Введіть коректне значення: ");
+                                studentName = DataInput.getText();
+                            }
+                            System.out.println("Введіть прізвище студента");
+                            String studentSurname = DataInput.getText();
+                            while (studentSurname == null || studentSurname.isEmpty()) {
+                                System.out.print("Введіть коректне значення: ");
+                                studentSurname = DataInput.getText();
+                            }
+                            if (department.getMember(studentName, studentSurname, "Student") == null) {
+                                System.out.println("Студента з таким ім'ям та прізвищем не існує");
+                            } else {
+                                System.out.println("Введіть нове ім'я студента");
+                                String newStudentName = DataInput.getText();
+                                while (newStudentName == null || newStudentName.isEmpty()) {
+                                    System.out.print("Введіть коректне значення: ");
+                                    newStudentName = DataInput.getText();
+                                }
+                                System.out.println("Введіть нове прізвище студента");
+                                String newStudentSurname = DataInput.getText();
+                                while (newStudentSurname == null || newStudentSurname.isEmpty()) {
+                                    System.out.print("Введіть коректне значення: ");
+                                    newStudentSurname = DataInput.getText();
+                                }
+                                System.out.print("Введіть новий курс студента: ");
+                                Integer newStudentCourse = DataInput.getInt();
+                                while (newStudentCourse == null || newStudentCourse < 1 || newStudentCourse > 6) {
+                                    System.out.print("Введіть коректне значення: ");
+                                    newStudentCourse = DataInput.getInt();
+                                }
+                                System.out.print("Введіть нову групу студента: ");
+                                Integer newStudentGroup = DataInput.getInt();
+                                while (newStudentGroup == null || newStudentGroup < 1 || newStudentGroup > 20) {
+                                    System.out.print("Введіть коректне значення: ");
+                                    newStudentGroup = DataInput.getInt();
+                                }
+                                if (department.changeMember(department.getMember(studentName, studentSurname, "Student"),
+                                        new Student(newStudentName, newStudentSurname, newStudentCourse, newStudentGroup, faculty, department))) {
+                                    System.out.println("Інформацію про студента оновлено");
+                                } else {
+                                    System.out.println("Сталася помилка. Інформацію про студента не змінено");
+                                }
+                            }
+                        }
+                    }
+                }
+                membersMenuAction();
+                break;
             case 6:
+                if (university.getAddedFacultiesCount() <= 0) {
+                    System.out.println("Немає факультетів для зміни викладачів");
+                } else {
+                    System.out.println("Наявні факультети:");
+                    university.printAllFaculties();
+                    System.out.println("Введіть назву факультету");
+                    String facultyName = DataInput.getText();
+                    while (facultyName == null || facultyName.isEmpty()) {
+                        System.out.print("Введіть коректне значення: ");
+                        facultyName = DataInput.getText();
+                    }
+                    while (university.getFaculty(facultyName) == null) {
+                        System.out.print("Факультет з такою назвою не існує. Введіть іншу назву: ");
+                        facultyName = DataInput.getText();
+                        while (facultyName == null || facultyName.isEmpty()) {
+                            System.out.print("Введіть коректне значення: ");
+                            facultyName = DataInput.getText();
+                        }
+                    }
+                    Faculty faculty = university.getFaculty(facultyName);
+                    if (faculty.getAddedDepartmentsCount() <= 0) {
+                        System.out.println("Немає кафедр для зміни викладачів");
+                    } else {
+                        System.out.println("Наявні кафедри:");
+                        faculty.printAllDepartments();
+                        System.out.println("Введіть назву кафедри");
+                        String departmentName = DataInput.getText();
+                        while (departmentName == null || departmentName.isEmpty()) {
+                            System.out.print("Введіть коректне значення: ");
+                            departmentName = DataInput.getText();
+                        }
+                        while (faculty.getDepartment(departmentName) == null) {
+                            System.out.print("Кафедра з такою назвою не існує. Введіть іншу назву: ");
+                            departmentName = DataInput.getText();
+                            while (departmentName == null || departmentName.isEmpty()) {
+                                System.out.print("Введіть коректне значення: ");
+                                departmentName = DataInput.getText();
+                            }
+                        }
+                        Department department = faculty.getDepartment(departmentName);
+                        if (department.getAddedMembersCount() <= 0) {
+                            System.out.println("Немає викладачів для зміни");
+                        } else {
+                            System.out.println("Введіть ім'я викладача");
+                            String teacherName = DataInput.getText();
+                            while (teacherName == null || teacherName.isEmpty()) {
+                                System.out.print("Введіть коректне значення: ");
+                                teacherName = DataInput.getText();
+                            }
+                            System.out.println("Введіть прізвище викладача");
+                            String teacherSurname = DataInput.getText();
+                            while (teacherSurname == null || teacherSurname.isEmpty()) {
+                                System.out.print("Введіть коректне значення: ");
+                                teacherSurname = DataInput.getText();
+                            }
+                            if (department.getMember(teacherName, teacherSurname, "Teacher") == null) {
+                                System.out.println("Викладача з таким ім'ям та прізвищем не існує");
+                            } else {
+                                System.out.println("Введіть нове ім'я викладача");
+                                String newTeacherName = DataInput.getText();
+                                while (newTeacherName == null || newTeacherName.isEmpty()) {
+                                    System.out.print("Введіть коректне значення: ");
+                                    newTeacherName = DataInput.getText();
+                                }
+                                System.out.println("Введіть нове прізвище викладача");
+                                String newTeacherSurname = DataInput.getText();
+                                while (newTeacherSurname == null || newTeacherSurname.isEmpty()) {
+                                    System.out.print("Введіть коректне значення: ");
+                                    newTeacherSurname = DataInput.getText();
+                                }
+                                if (department.changeMember(department.getMember(teacherName, teacherSurname, "Teacher"),
+                                        new Teacher(newTeacherName, newTeacherSurname, faculty, department))) {
+                                    System.out.println("Інформацію про викладача оновлено");
+                                } else {
+                                    System.out.println("Сталася помилка. Інформацію про викладача не змінено");
+                                }
+                            }
+                        }
+                    }
+                }
+                membersMenuAction();
+                break;
             case 7:
                 mainMenuAction();
                 break;
@@ -404,7 +829,6 @@ public class Main {
     }
 
     private void informationMenuAction() {
-        //todo
         printInformationMenu();
         System.out.print("Виберіть дію: ");
         Integer informationMenuAction = DataInput.getInt();
@@ -418,12 +842,290 @@ public class Main {
                 informationMenuAction();
                 break;
             case 2:
+                if (university.getAddedFacultiesCount() <= 0) {
+                    System.out.println("Немає факультетів для виведення студентів");
+                } else {
+                    System.out.println("Наявні факультети:");
+                    university.printAllFaculties();
+                    System.out.println("Введіть назву факультету");
+                    String facultyName = DataInput.getText();
+                    while (facultyName == null || facultyName.isEmpty()) {
+                        System.out.print("Введіть коректне значення: ");
+                        facultyName = DataInput.getText();
+                    }
+                    while (university.getFaculty(facultyName) == null) {
+                        System.out.print("Факультет з такою назвою не існує. Введіть іншу назву: ");
+                        facultyName = DataInput.getText();
+                        while (facultyName == null || facultyName.isEmpty()) {
+                            System.out.print("Введіть коректне значення: ");
+                            facultyName = DataInput.getText();
+                        }
+                    }
+                    university.printAllStudentsAlphabetically(university.getFaculty(facultyName).getName());
+                }
+                informationMenuAction();
+                break;
             case 3:
+                if (university.getAddedFacultiesCount() <= 0) {
+                    System.out.println("Немає факультетів для виведення викладачів");
+                } else {
+                    System.out.println("Наявні факультети:");
+                    university.printAllFaculties();
+                    System.out.println("Введіть назву факультету");
+                    String facultyName = DataInput.getText();
+                    while (facultyName == null || facultyName.isEmpty()) {
+                        System.out.print("Введіть коректне значення: ");
+                        facultyName = DataInput.getText();
+                    }
+                    while (university.getFaculty(facultyName) == null) {
+                        System.out.print("Факультет з такою назвою не існує. Введіть іншу назву: ");
+                        facultyName = DataInput.getText();
+                        while (facultyName == null || facultyName.isEmpty()) {
+                            System.out.print("Введіть коректне значення: ");
+                            facultyName = DataInput.getText();
+                        }
+                    }
+                    university.printAllStudentsAlphabetically(university.getFaculty(facultyName).getName());
+                }
+                informationMenuAction();
+                break;
             case 4:
+                if (university.getAddedFacultiesCount() <= 0) {
+                    System.out.println("Немає факультетів для виведення студентів кафедри");
+                } else {
+                    System.out.println("Наявні факультети:");
+                    university.printAllFaculties();
+                    System.out.println("Введіть назву факультету");
+                    String facultyName = DataInput.getText();
+                    while (facultyName == null || facultyName.isEmpty()) {
+                        System.out.print("Введіть коректне значення: ");
+                        facultyName = DataInput.getText();
+                    }
+                    while (university.getFaculty(facultyName) == null) {
+                        System.out.print("Факультет з такою назвою не існує. Введіть іншу назву: ");
+                        facultyName = DataInput.getText();
+                        while (facultyName == null || facultyName.isEmpty()) {
+                            System.out.print("Введіть коректне значення: ");
+                            facultyName = DataInput.getText();
+                        }
+                    }
+                    Faculty faculty = university.getFaculty(facultyName);
+                    if (faculty.getAddedDepartmentsCount() <= 0) {
+                        System.out.println("Немає кафедр для виведення студентів");
+                    } else {
+                        System.out.println("Наявні кафедри:");
+                        faculty.printAllDepartments();
+                        System.out.println("Введіть назву кафедри");
+                        String departmentName = DataInput.getText();
+                        while (departmentName == null || departmentName.isEmpty()) {
+                            System.out.print("Введіть коректне значення: ");
+                            departmentName = DataInput.getText();
+                        }
+                        while (faculty.getDepartment(departmentName) == null) {
+                            System.out.print("Кафедра з такою назвою не існує. Введіть іншу назву: ");
+                            departmentName = DataInput.getText();
+                            while (departmentName == null || departmentName.isEmpty()) {
+                                System.out.print("Введіть коректне значення: ");
+                                departmentName = DataInput.getText();
+                            }
+                        }
+                        faculty.printAllStudentsByCourse(faculty.getDepartment(departmentName).getName());
+                    }
+                }
+                informationMenuAction();
+                break;
             case 5:
+                if (university.getAddedFacultiesCount() <= 0) {
+                    System.out.println("Немає факультетів для виведення студентів кафедри");
+                } else {
+                    System.out.println("Наявні факультети:");
+                    university.printAllFaculties();
+                    System.out.println("Введіть назву факультету");
+                    String facultyName = DataInput.getText();
+                    while (facultyName == null || facultyName.isEmpty()) {
+                        System.out.print("Введіть коректне значення: ");
+                        facultyName = DataInput.getText();
+                    }
+                    while (university.getFaculty(facultyName) == null) {
+                        System.out.print("Факультет з такою назвою не існує. Введіть іншу назву: ");
+                        facultyName = DataInput.getText();
+                        while (facultyName == null || facultyName.isEmpty()) {
+                            System.out.print("Введіть коректне значення: ");
+                            facultyName = DataInput.getText();
+                        }
+                    }
+                    Faculty faculty = university.getFaculty(facultyName);
+                    if (faculty.getAddedDepartmentsCount() <= 0) {
+                        System.out.println("Немає кафедр для виведення студентів");
+                    } else {
+                        System.out.println("Наявні кафедри:");
+                        faculty.printAllDepartments();
+                        System.out.println("Введіть назву кафедри");
+                        String departmentName = DataInput.getText();
+                        while (departmentName == null || departmentName.isEmpty()) {
+                            System.out.print("Введіть коректне значення: ");
+                            departmentName = DataInput.getText();
+                        }
+                        while (faculty.getDepartment(departmentName) == null) {
+                            System.out.print("Кафедра з такою назвою не існує. Введіть іншу назву: ");
+                            departmentName = DataInput.getText();
+                            while (departmentName == null || departmentName.isEmpty()) {
+                                System.out.print("Введіть коректне значення: ");
+                                departmentName = DataInput.getText();
+                            }
+                        }
+                        faculty.printAllStudentsAlphabetically(faculty.getDepartment(departmentName).getName());
+                    }
+                }
+                informationMenuAction();
+                break;
             case 6:
+                if (university.getAddedFacultiesCount() <= 0) {
+                    System.out.println("Немає факультетів для виведення студентів кафедри");
+                } else {
+                    System.out.println("Наявні факультети:");
+                    university.printAllFaculties();
+                    System.out.println("Введіть назву факультету");
+                    String facultyName = DataInput.getText();
+                    while (facultyName == null || facultyName.isEmpty()) {
+                        System.out.print("Введіть коректне значення: ");
+                        facultyName = DataInput.getText();
+                    }
+                    while (university.getFaculty(facultyName) == null) {
+                        System.out.print("Факультет з такою назвою не існує. Введіть іншу назву: ");
+                        facultyName = DataInput.getText();
+                        while (facultyName == null || facultyName.isEmpty()) {
+                            System.out.print("Введіть коректне значення: ");
+                            facultyName = DataInput.getText();
+                        }
+                    }
+                    Faculty faculty = university.getFaculty(facultyName);
+                    if (faculty.getAddedDepartmentsCount() <= 0) {
+                        System.out.println("Немає кафедр для виведення студентів");
+                    } else {
+                        System.out.println("Наявні кафедри:");
+                        faculty.printAllDepartments();
+                        System.out.println("Введіть назву кафедри");
+                        String departmentName = DataInput.getText();
+                        while (departmentName == null || departmentName.isEmpty()) {
+                            System.out.print("Введіть коректне значення: ");
+                            departmentName = DataInput.getText();
+                        }
+                        while (faculty.getDepartment(departmentName) == null) {
+                            System.out.print("Кафедра з такою назвою не існує. Введіть іншу назву: ");
+                            departmentName = DataInput.getText();
+                            while (departmentName == null || departmentName.isEmpty()) {
+                                System.out.print("Введіть коректне значення: ");
+                                departmentName = DataInput.getText();
+                            }
+                        }
+                        faculty.printAllTeachersAlphabetically(faculty.getDepartment(departmentName).getName());
+                    }
+                }
+                informationMenuAction();
+                break;
             case 7:
+                if (university.getAddedFacultiesCount() <= 0) {
+                    System.out.println("Немає факультетів для виведення студентів кафедри");
+                } else {
+                    System.out.println("Наявні факультети:");
+                    university.printAllFaculties();
+                    System.out.println("Введіть назву факультету");
+                    String facultyName = DataInput.getText();
+                    while (facultyName == null || facultyName.isEmpty()) {
+                        System.out.print("Введіть коректне значення: ");
+                        facultyName = DataInput.getText();
+                    }
+                    while (university.getFaculty(facultyName) == null) {
+                        System.out.print("Факультет з такою назвою не існує. Введіть іншу назву: ");
+                        facultyName = DataInput.getText();
+                        while (facultyName == null || facultyName.isEmpty()) {
+                            System.out.print("Введіть коректне значення: ");
+                            facultyName = DataInput.getText();
+                        }
+                    }
+                    Faculty faculty = university.getFaculty(facultyName);
+                    if (faculty.getAddedDepartmentsCount() <= 0) {
+                        System.out.println("Немає кафедр для виведення студентів");
+                    } else {
+                        System.out.println("Наявні кафедри:");
+                        faculty.printAllDepartments();
+                        System.out.println("Введіть назву кафедри");
+                        String departmentName = DataInput.getText();
+                        while (departmentName == null || departmentName.isEmpty()) {
+                            System.out.print("Введіть коректне значення: ");
+                            departmentName = DataInput.getText();
+                        }
+                        while (faculty.getDepartment(departmentName) == null) {
+                            System.out.print("Кафедра з такою назвою не існує. Введіть іншу назву: ");
+                            departmentName = DataInput.getText();
+                            while (departmentName == null || departmentName.isEmpty()) {
+                                System.out.print("Введіть коректне значення: ");
+                                departmentName = DataInput.getText();
+                            }
+                        }
+                        System.out.print("Введіть курс студентів: ");
+                        Integer course = DataInput.getInt();
+                        while (course == null || course < 1 || course > 6) {
+                            System.out.print("Введіть коректне значення: ");
+                            course = DataInput.getInt();
+                        }
+                        faculty.printAllStudentsOfCourse(faculty.getDepartment(departmentName).getName(), course);
+                    }
+                }
+                informationMenuAction();
+                break;
             case 8:
+                if (university.getAddedFacultiesCount() <= 0) {
+                    System.out.println("Немає факультетів для виведення студентів кафедри");
+                } else {
+                    System.out.println("Наявні факультети:");
+                    university.printAllFaculties();
+                    System.out.println("Введіть назву факультету");
+                    String facultyName = DataInput.getText();
+                    while (facultyName == null || facultyName.isEmpty()) {
+                        System.out.print("Введіть коректне значення: ");
+                        facultyName = DataInput.getText();
+                    }
+                    while (university.getFaculty(facultyName) == null) {
+                        System.out.print("Факультет з такою назвою не існує. Введіть іншу назву: ");
+                        facultyName = DataInput.getText();
+                        while (facultyName == null || facultyName.isEmpty()) {
+                            System.out.print("Введіть коректне значення: ");
+                            facultyName = DataInput.getText();
+                        }
+                    }
+                    Faculty faculty = university.getFaculty(facultyName);
+                    if (faculty.getAddedDepartmentsCount() <= 0) {
+                        System.out.println("Немає кафедр для виведення студентів");
+                    } else {
+                        System.out.println("Наявні кафедри:");
+                        faculty.printAllDepartments();
+                        System.out.println("Введіть назву кафедри");
+                        String departmentName = DataInput.getText();
+                        while (departmentName == null || departmentName.isEmpty()) {
+                            System.out.print("Введіть коректне значення: ");
+                            departmentName = DataInput.getText();
+                        }
+                        while (faculty.getDepartment(departmentName) == null) {
+                            System.out.print("Кафедра з такою назвою не існує. Введіть іншу назву: ");
+                            departmentName = DataInput.getText();
+                            while (departmentName == null || departmentName.isEmpty()) {
+                                System.out.print("Введіть коректне значення: ");
+                                departmentName = DataInput.getText();
+                            }
+                        }
+                        System.out.print("Введіть курс студентів: ");
+                        Integer course = DataInput.getInt();
+                        while (course == null || course < 1 || course > 6) {
+                            System.out.print("Введіть коректне значення: ");
+                            course = DataInput.getInt();
+                        }
+                        faculty.printAllStudentsOfCourseAlphabetically(faculty.getDepartment(departmentName).getName(), course);
+                    }
+                }
+                informationMenuAction();
+                break;
             case 9:
                 mainMenuAction();
                 break;
@@ -439,6 +1141,72 @@ public class Main {
         System.out.println("[5] Вийти у головне меню");
     }
 
+    private void findMenuAction() {
+        printFindMenu();
+        System.out.print("Виберіть дію: ");
+        Integer findMenuAction = DataInput.getInt();
+        while (findMenuAction == null || findMenuAction < 1 || findMenuAction > 5) {
+            System.out.print("Введіть коректне значення: ");
+            findMenuAction = DataInput.getInt();
+        }
+        switch (findMenuAction) {
+            case 1:
+                System.out.println("Введіть ім'я студента");
+                String studentName = DataInput.getText();
+                while (studentName == null || studentName.isEmpty()) {
+                    System.out.print("Введіть коректне значення: ");
+                    studentName = DataInput.getText();
+                }
+                System.out.println("Введіть прізвище студента");
+                String studentSurname = DataInput.getText();
+                while (studentSurname == null || studentSurname.isEmpty()) {
+                    System.out.print("Введіть коректне значення: ");
+                    studentSurname = DataInput.getText();
+                }
+                university.findMemberByName(studentName, studentSurname, "Student");
+                findMenuAction();
+                break;
+            case 2:
+                System.out.print("Введіть курс студентів: ");
+                Integer course = DataInput.getInt();
+                while (course == null || course < 1 || course > 6) {
+                    System.out.print("Введіть коректне значення: ");
+                    course = DataInput.getInt();
+                }
+                university.findStudentByCourse(course);
+                findMenuAction();
+                break;
+            case 3:
+                System.out.print("Введіть групу студентів: ");
+                Integer group = DataInput.getInt();
+                while (group == null || group < 1 || group > 20) {
+                    System.out.print("Введіть коректне значення: ");
+                    group = DataInput.getInt();
+                }
+                university.findStudentByGroup(group);
+                findMenuAction();
+                break;
+            case 4:
+                System.out.println("Введіть ім'я викладача");
+                String teacherName = DataInput.getText();
+                while (teacherName == null || teacherName.isEmpty()) {
+                    System.out.print("Введіть коректне значення: ");
+                    teacherName = DataInput.getText();
+                }
+                System.out.println("Введіть прізвище викладача");
+                String teacherSurname = DataInput.getText();
+                while (teacherSurname == null || teacherSurname.isEmpty()) {
+                    System.out.print("Введіть коректне значення: ");
+                    teacherSurname = DataInput.getText();
+                }
+                university.findMemberByName(teacherName, teacherSurname, "Teacher");
+                findMenuAction();
+                break;
+            case 5:
+                mainMenuAction();
+                break;
+        }
+    }
 
     public static void main(String[] args) {
         University university = createNaUKMA();

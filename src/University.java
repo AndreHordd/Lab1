@@ -100,7 +100,6 @@ public class University {
         for (int i = 0; i < addedFacultiesCount; i++) {
             faculties[i].printAllStudentsByCourse();
         }
-
     }
 
     //Знайти студента/викладача за ПІБ
