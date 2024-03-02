@@ -1,9 +1,30 @@
+/**
+ * Class to represent a department
+ */
 public class Department {
+    /**
+     * Department's name
+     */
     private String name;
+    /**
+     * Array of department's members (students and teachers)
+     */
     private Person[] members;
+    /**
+     * Number of members the department can hold
+     */
     private int membersCount;
+    /**
+     * Number of members added to the department
+     */
     private int addedMembersCount;
 
+    /**
+     * Constructor for a department
+     *
+     * @param name         department's name
+     * @param membersCount number of members the department can hold
+     */
     Department(String name, int membersCount) {
         this.name = name;
         this.membersCount = membersCount;
@@ -11,38 +32,65 @@ public class Department {
         this.members = new Person[membersCount];
     }
 
+    /**
+     * Department name getter
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Department name setter
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Department members getter
+     */
     public Person[] getMembers() {
         return members;
     }
 
+    /**
+     * Department members setter
+     */
     public void setMembers(Person[] members) {
         this.members = members;
     }
 
+    /**
+     * Department members count getter
+     */
     public int getMembersCount() {
         return membersCount;
     }
 
+    /**
+     * Department members count setter
+     */
     public void setMembersCount(int membersCount) {
         this.membersCount = membersCount;
     }
 
+    /**
+     * Department added members count getter
+     */
     public int getAddedMembersCount() {
         return addedMembersCount;
     }
 
+    /**
+     * Department added members count setter
+     */
     public void setAddedMembersCount(int addedMembersCount) {
         this.addedMembersCount = addedMembersCount;
     }
 
+    /**
+     * Get the number of students in the department
+     */
     public int getStudentsCount() {
         int studentsCount = 0;
         for (int i = 0; i < addedMembersCount; i++) {
@@ -53,6 +101,9 @@ public class Department {
         return studentsCount;
     }
 
+    /**
+     * Get the number of teachers in the department
+     */
     public int getTeachersCount() {
         int teachersCount = 0;
         for (int i = 0; i < addedMembersCount; i++) {
@@ -63,6 +114,11 @@ public class Department {
         return teachersCount;
     }
 
+    /**
+     * Add a member to the department
+     *
+     * @param person person to add
+     */
     public void addMember(Person person) {
         if (addedMembersCount == members.length) {
             expandMembersArray();
@@ -70,12 +126,23 @@ public class Department {
         members[addedMembersCount++] = person;
     }
 
+    /**
+     * Expand the members array
+     */
     private void expandMembersArray() {
         Person[] newMembers = new Person[members.length * 2];
         System.arraycopy(members, 0, newMembers, 0, members.length);
         members = newMembers;
     }
 
+    /**
+     * Remove a member from the department
+     *
+     * @param name       member's name
+     * @param surname    member's surname
+     * @param personType member's type (Student or Teacher)
+     * @return true if the member was removed, false otherwise
+     */
     public boolean removeMember(String name, String surname, String personType) {
         for (int i = 0; i < addedMembersCount; i++) {
             if (members[i].getName().equals(name) && members[i].getSurname().equals(surname) && members[i].getPersonType().equals(personType) && members[i] != null) {
@@ -87,6 +154,13 @@ public class Department {
         return false;
     }
 
+    /**
+     * Change a member in the department
+     *
+     * @param oldPerson old member
+     * @param newPerson new member
+     * @return true if the member was changed, false otherwise
+     */
     public boolean changeMember(Person oldPerson, Person newPerson) {
         for (int i = 0; i < addedMembersCount; i++) {
             if (members[i].getName().equals(oldPerson.getName()) && members[i].getSurname().equals(oldPerson.getSurname())) {
@@ -97,9 +171,12 @@ public class Department {
         return false;
     }
 
+    /**
+     * Print all students of the department
+     */
     public void printAllStudentsAlphabetically() {
         if (getStudentsCount() == 0) {
-            System.out.println("No students");
+            System.out.println("Студентів немає");
         } else {
             Person[] students = new Person[addedMembersCount];
             int studentsCount = 0;
@@ -117,9 +194,12 @@ public class Department {
         }
     }
 
+    /**
+     * Print all teachers of the department
+     */
     public void printAllTeachersAlphabetically() {
         if (getTeachersCount() == 0) {
-            System.out.println("No teachers");
+            System.out.println("Студентів немає");
         } else {
             Person[] teachers = new Person[addedMembersCount];
             int teachersCount = 0;
@@ -137,9 +217,12 @@ public class Department {
         }
     }
 
+    /**
+     * Print all students of the department of a certain course
+     */
     public void printAllStudentsOfCourse(int course) {
         if (getStudentsCount() == 0) {
-            System.out.println("No students");
+            System.out.println("Студентів немає");
         } else {
             for (int i = 0; i < addedMembersCount; i++) {
                 if (members[i].getPersonType().equals("Student") && ((Student) members[i]).getCourse() == course && members[i] != null) {
@@ -149,9 +232,12 @@ public class Department {
         }
     }
 
+    /**
+     * Print all students of the department in increasing order of course
+     */
     public void printAllStudentsByCourse() {
         if (getStudentsCount() == 0) {
-            System.out.println("No students");
+            System.out.println("Студентів немає");
         } else {
             Person[] students = new Person[addedMembersCount];
             int studentsCount = 0;
@@ -169,9 +255,12 @@ public class Department {
         }
     }
 
+    /**
+     * Print all students of the department of a certain course in alphabetical order
+     */
     public void printAllStudentsOfCourseAlphabetically(int course) {
         if (getStudentsCount() == 0) {
-            System.out.println("No students");
+            System.out.println("Студентів немає");
         } else {
             Person[] students = new Person[addedMembersCount];
             int studentsCount = 0;
@@ -188,45 +277,77 @@ public class Department {
         }
     }
 
-    //Знайти студента/викладача за ПІБ
+    /**
+     * Find a member by name and surname
+     *
+     * @param name
+     * @param surname
+     * @param personType
+     */
     public void findMemberByName(String name, String surname, String personType) {
+        int count = 0;
         for (int i = 0; i < addedMembersCount; i++) {
             if (members[i].getName().equals(name) && members[i].getSurname().equals(surname) && members[i].getPersonType().equals(personType)) {
                 if (members[i] != null) {
                     System.out.println(members[i]);
-                } else {
-                    System.out.println("No such member");
+                    count++;
                 }
+            }
+        }
+        if (count == 0) {
+            if (personType.equals("Student")) {
+                System.out.println("Немає такого студента");
+            } else {
+                System.out.println("Немає такого викладача");
             }
         }
     }
 
-    //Знайти студента за курсом
+    /**
+     * Find a student of certain course
+     *
+     * @param course
+     */
     public void findStudentByCourse(int course) {
+        int count = 0;
         for (int i = 0; i < addedMembersCount; i++) {
             if (members[i].getPersonType().equals("Student") && ((Student) members[i]).getCourse() == course) {
                 if (members[i] != null) {
                     System.out.println(members[i]);
-                } else {
-                    System.out.println("No such member");
+                    count++;
                 }
             }
         }
+        if (count == 0) {
+            System.out.println("Немає такого студента");
+        }
     }
 
-    //Знайти студента/викладача за групою.
+    /**
+     * Find a student of certain group
+     *
+     * @param group
+     */
     public void findStudentByGroup(int group) {
+        int count = 0;
         for (int i = 0; i < addedMembersCount; i++) {
             if (members[i].getPersonType().equals("Student") && ((Student) members[i]).getGroup() == group) {
                 if (members[i] != null) {
                     System.out.println(members[i]);
-                } else {
-                    System.out.println("No such member");
+                    count++;
                 }
             }
         }
+        if (count == 0) {
+            System.out.println("Немає такого студента");
+        }
     }
 
+    /**
+     * Sort an array of persons alphabetically
+     *
+     * @param array array to sort
+     */
     private void sortArrayAlphabetically(Person[] array) {
         for (int i = 0; i < addedMembersCount - 1; i++) {
             for (int j = 0; j < addedMembersCount - i - 1; j++) {
@@ -241,6 +362,11 @@ public class Department {
         }
     }
 
+    /**
+     * Sort an array of students by course
+     *
+     * @param array array to sort
+     */
     private void sortArrayByCourse(Person[] array) {
         for (int i = 0; i < addedMembersCount - 1; i++) {
             for (int j = 0; j < addedMembersCount - i - 1; j++) {
@@ -255,7 +381,14 @@ public class Department {
         }
     }
 
-
+    /**
+     * Get a member by name, surname and type
+     *
+     * @param studentName
+     * @param studentSurname
+     * @param type
+     * @return member
+     */
     public Person getMember(String studentName, String studentSurname, String type) {
         for (int i = 0; i < addedMembersCount; i++) {
             if (members[i].getName().equals(studentName) && members[i].getSurname().equals(studentSurname) && members[i].getPersonType().equals(type)) {
