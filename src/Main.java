@@ -1,11 +1,27 @@
+/**
+ * Main class
+ */
 public class Main {
 
+    /**
+     * University object
+     */
     private University university;
 
+    /**
+     * Constructor for Main class
+     *
+     * @param university University object
+     */
     public Main(University university) {
         this.university = university;
     }
 
+    /**
+     * Main method
+     *
+     * @param args command line arguments
+     */
     public static void main(String[] args) {
         University university = createNaUKMA();
         Main main = new Main(university);
@@ -13,10 +29,18 @@ public class Main {
         main.mainMenuAction();
     }
 
+    /**
+     * Method to create NaUKMA university
+     *
+     * @return NaUKMA university
+     */
     private static University createNaUKMA() {
         return new University("NaUKMA", 10);
     }
 
+    /**
+     * Method to print header
+     */
     private void printHeader() {
         System.out.println("+-----------------------------------+");
         System.out.println("|        Лабораторна робота         |");
@@ -29,6 +53,9 @@ public class Main {
         System.out.println("+-----------------------------------+");
     }
 
+    /**
+     * Method to print main menu
+     */
     private void printMainMenu() {
         System.out.println("\n=-=-=-=-=-=-=-=- Меню -=-=-=-=-=-=-=-=");
         System.out.println("[1] Взаємодіяти з факультетами");
@@ -39,6 +66,9 @@ public class Main {
         System.out.println("[6] Вийти з програми");
     }
 
+    /**
+     * Method to run main menu
+     */
     private void mainMenuAction() {
         printMainMenu();
         Integer mainMenuAction = getChoice(1, 6);
@@ -64,6 +94,9 @@ public class Main {
         }
     }
 
+    /**
+     * Method to print faculty menu
+     */
     private void printFacultyMenu() {
         System.out.println("\n=-=-=- Взаємодія з факультетами -=-=-=");
         if (university.getAddedFacultiesCount() != 0) {
@@ -76,6 +109,9 @@ public class Main {
         System.out.println("[4] Вийти у головне меню");
     }
 
+    /**
+     * Method to run faculty menu
+     */
     private void facultyMenuAction() {
         printFacultyMenu();
         Integer facultyMenuAction = getChoice(1, 4);
@@ -166,6 +202,9 @@ public class Main {
         }
     }
 
+    /**
+     * Method to print department menu
+     */
     private void printDepartmentMenu() {
         System.out.println("\n=-=-=-=- Взаємодія з кафедрами -=-=-=-");
         System.out.println("[1] Додати кафедру");
@@ -174,6 +213,9 @@ public class Main {
         System.out.println("[4] Вийти у головне меню");
     }
 
+    /**
+     * Method to run department menu
+     */
     private void departmentMenuAction() {
         printDepartmentMenu();
         Integer departmentMenuAction = getChoice(1, 4);
@@ -322,6 +364,9 @@ public class Main {
         }
     }
 
+    /**
+     * Method to print members menu
+     */
     private void printMembersMenu() {
         System.out.println("\n=-=-=- Взаємодія зі студентами/викладачами -=-=-=");
         System.out.println("[1] Додати студента/викладача");
@@ -330,6 +375,9 @@ public class Main {
         System.out.println("[4] Вийти у головне меню");
     }
 
+    /**
+     * Method to run members menu
+     */
     private void membersMenuAction() {
         printMembersMenu();
         Integer membersMenuAction = getChoice(1, 4);
@@ -577,6 +625,9 @@ public class Main {
         }
     }
 
+    /**
+     * Method to print information menu
+     */
     private void printInformationMenu() {
         System.out.println("\n=-=-=-=- Виведення інформації -=-=-=-=");
         System.out.println("[1] Вивести всіх студентів впорядкованих за курсами");
@@ -590,6 +641,9 @@ public class Main {
         System.out.println("[9] Вийти у головне меню");
     }
 
+    /**
+     * Method to run information menu
+     */
     private void informationMenuAction() {
         printInformationMenu();
         Integer informationMenuAction = getChoice(1, 9);
@@ -841,6 +895,9 @@ public class Main {
         }
     }
 
+    /**
+     * Method to print find menu
+     */
     private void printFindMenu() {
         System.out.println("\n=-=-=- Пошук студента/викладача -=-=-=");
         System.out.println("[1] Знайти студента за ім'ям та прізвищем");
@@ -850,6 +907,9 @@ public class Main {
         System.out.println("[5] Вийти у головне меню");
     }
 
+    /**
+     * Method to run find menu
+     */
     private void findMenuAction() {
         printFindMenu();
         Integer findMenuAction = getChoice(1, 5);
@@ -912,6 +972,13 @@ public class Main {
         }
     }
 
+    /**
+     * Method to get choice
+     *
+     * @param min min value
+     * @param max max value
+     * @return choice
+     */
     private Integer getChoice(int min, int max) {
         System.out.print("Виберіть дію: ");
         Integer menuAction = DataInput.getInt();
