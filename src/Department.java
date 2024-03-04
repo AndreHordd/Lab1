@@ -349,10 +349,13 @@ public class Department {
      * @param array array to sort
      */
     private void sortArrayAlphabetically(Person[] array) {
-        for (int i = 0; i < addedMembersCount - 1; i++) {
-            for (int j = 0; j < addedMembersCount - i - 1; j++) {
+        for (int i = 0; i < array.length - 1; i++) {
+            for (int j = 0; j < array.length - i - 1; j++) {
                 if (array[j] != null && array[j + 1] != null) {
-                    if (array[j].getName().compareTo(array[j + 1].getName()) > 0) {
+                    String name1 = array[j].getName().toLowerCase();
+                    String name2 = array[j + 1].getName().toLowerCase();
+
+                    if (name1.compareTo(name2) > 0) {
                         Person temp = array[j];
                         array[j] = array[j + 1];
                         array[j + 1] = temp;
@@ -361,6 +364,7 @@ public class Department {
             }
         }
     }
+
 
     /**
      * Sort an array of students by course
