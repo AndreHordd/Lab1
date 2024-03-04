@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /**
  * Class to represent a department
  */
@@ -349,13 +351,10 @@ public class Department {
      * @param array array to sort
      */
     private void sortArrayAlphabetically(Person[] array) {
-        for (int i = 0; i < array.length - 1; i++) {
-            for (int j = 0; j < array.length - i - 1; j++) {
+        for (int i = 0; i < addedMembersCount - 1; i++) {
+            for (int j = 0; j < addedMembersCount - i - 1; j++) {
                 if (array[j] != null && array[j + 1] != null) {
-                    String name1 = array[j].getName().toLowerCase();
-                    String name2 = array[j + 1].getName().toLowerCase();
-
-                    if (name1.compareTo(name2) > 0) {
+                    if (compareTo(array[j].getName(), array[j + 1].getName()) > 0) {
                         Person temp = array[j];
                         array[j] = array[j + 1];
                         array[j + 1] = temp;
@@ -363,6 +362,32 @@ public class Department {
                 }
             }
         }
+    }
+
+    /**
+     * Compare two strings alphabetically
+     *
+     * @param name1 first name
+     * @param name2 second name
+     * @return 0 if the names are equal, a positive number if the first name is greater, a negative number if the second name is greater
+     */
+    public static int compareTo(String name1, String name2) {
+        String[] ukrainianAlphabet = {"А", "Б", "В", "Г", "Ґ", "Д", "Е", "Є", "Ж", "З", "И", "І", "Ї", "Й", "К", "Л", "М", "Н", "О", "П", "Р", "С", "Т", "У", "Ф", "Х", "Ц", "Ч", "Ш", "Щ", "Ю", "Я"};
+        String thisName = name1.toUpperCase().replace("'", "");
+        String otherName = name2.toUpperCase().replace("'", "");
+
+        if (thisName.matches("[A-Z ]+") && otherName.matches("[A-Z ]+")) {
+            return thisName.compareTo(otherName);
+        }
+
+        for (int i = 0; i < Math.min(thisName.length(), otherName.length()); i++) {
+            int thisIndex = Arrays.asList(ukrainianAlphabet).indexOf(String.valueOf(thisName.charAt(i)));
+            int otherIndex = Arrays.asList(ukrainianAlphabet).indexOf(String.valueOf(otherName.charAt(i)));
+            if (thisIndex != otherIndex) {
+                return thisIndex - otherIndex;
+            }
+        }
+        return thisName.length() - otherName.length();
     }
 
 
