@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /**
  * University class represents a university with its faculties.
  */
@@ -145,9 +147,29 @@ public class University {
      * Method to print all students
      */
     public void printAllStudentsAlphabetically(String facultyName) {
+        Student[] allStudentsOfFaculty = new Student[getFaculty(facultyName).getNumberOfMembers("Student")];
+        int index = 0;
         for (int i = 0; i < addedFacultiesCount; i++) {
             if (faculties[i].getName().equals(facultyName)) {
-                faculties[i].printAllStudentsAlphabetically();
+                for (int j = 0; j < faculties[i].getAddedDepartmentsCount(); j++) {
+                    for (int k = 0; k < faculties[i].getDepartments()[j].getAddedStudentsCount(); k++) {
+                        allStudentsOfFaculty[index++] = faculties[i].getDepartments()[j].getStudents()[k];
+                    }
+                }
+            }
+        }
+        for (int i = 0; i < allStudentsOfFaculty.length - 1; i++) {
+            for (int j = 0; j < allStudentsOfFaculty.length - i - 1; j++) {
+                if (compareTo(allStudentsOfFaculty[j].getName(), allStudentsOfFaculty[j + 1].getName()) > 0) {
+                    Student temp = allStudentsOfFaculty[j];
+                    allStudentsOfFaculty[j] = allStudentsOfFaculty[j + 1];
+                    allStudentsOfFaculty[j + 1] = temp;
+                }
+            }
+        }
+        for (Student student : allStudentsOfFaculty) {
+            if (student != null) {
+                System.out.println(student);
             }
         }
     }
@@ -158,9 +180,43 @@ public class University {
      * @param facultyName faculty name
      */
     public void printAllTeachersAlphabetically(String facultyName) {
+        Teacher[] allTeachersOfFaculty = new Teacher[getFaculty(facultyName).getNumberOfMembers("Teacher")];
+        int index = 0;
         for (int i = 0; i < addedFacultiesCount; i++) {
             if (faculties[i].getName().equals(facultyName)) {
-                faculties[i].printAllTeachersAlphabetically();
+                for (int j = 0; j < faculties[i].getAddedDepartmentsCount(); j++) {
+                    for (int k = 0; k < faculties[i].getDepartments()[j].getAddedTeachersCount(); k++) {
+                        allTeachersOfFaculty[index++] = faculties[i].getDepartments()[j].getTeachers()[k];
+                    }
+                }
+            }
+        }
+        for (int i = 0; i < allTeachersOfFaculty.length - 1; i++) {
+            for (int j = 0; j < allTeachersOfFaculty.length - i - 1; j++) {
+                if (compareTo(allTeachersOfFaculty[j].getName(), allTeachersOfFaculty[j + 1].getName()) > 0) {
+                    Teacher temp = allTeachersOfFaculty[j];
+                    allTeachersOfFaculty[j] = allTeachersOfFaculty[j + 1];
+                    allTeachersOfFaculty[j + 1] = temp;
+                }
+            }
+        }
+        for (Teacher teacher : allTeachersOfFaculty) {
+            if (teacher != null) {
+                System.out.println(teacher);
+            }
+        }
+        for (int i = 0; i < allTeachersOfFaculty.length - 1; i++) {
+            for (int j = 0; j < allTeachersOfFaculty.length - i - 1; j++) {
+                if (compareTo(allTeachersOfFaculty[j].getName(), allTeachersOfFaculty[j + 1].getName()) > 0) {
+                    Teacher temp = allTeachersOfFaculty[j];
+                    allTeachersOfFaculty[j] = allTeachersOfFaculty[j + 1];
+                    allTeachersOfFaculty[j + 1] = temp;
+                }
+            }
+        }
+        for (Teacher teacher : allTeachersOfFaculty) {
+            if (teacher != null) {
+                System.out.println(teacher);
             }
         }
     }
@@ -169,8 +225,26 @@ public class University {
      * Method to print all students by course increasing order
      */
     public void printAllStudentsByCourse() {
+        Student[] allStudents = new Student[getNumberOfMembers("Student")];
+        int index = 0;
         for (int i = 0; i < addedFacultiesCount; i++) {
-            faculties[i].printAllStudentsByCourse();
+            for (int j = 0; j < faculties[i].getAddedDepartmentsCount(); j++) {
+                for (int k = 0; k < faculties[i].getDepartments()[j].getAddedStudentsCount(); k++) {
+                    allStudents[index++] = faculties[i].getDepartments()[j].getStudents()[k];
+                }
+            }
+        }
+        for (int i = 0; i < allStudents.length - 1; i++) {
+            for (int j = 0; j < allStudents.length - i - 1; j++) {
+                if (allStudents[j].getCourse() > allStudents[j + 1].getCourse()) {
+                    Student temp = allStudents[j];
+                    allStudents[j] = allStudents[j + 1];
+                    allStudents[j + 1] = temp;
+                }
+            }
+        }
+        for (Student student : allStudents) {
+            System.out.println(student);
         }
     }
 
@@ -189,6 +263,7 @@ public class University {
 
     /**
      * Method to find a student of certain course
+     *
      * @param course course number
      */
     public void findStudentByCourse(int course) {
@@ -199,6 +274,7 @@ public class University {
 
     /**
      * Method to find a student of certain group
+     *
      * @param group group number
      */
     public void findStudentByGroup(int group) {
@@ -220,5 +296,40 @@ public class University {
         System.out.println(res);
     }
 
+    /**
+     * Method to get number of added member to the university
+     */
+    public int getNumberOfMembers(String type) {
+        int count = 0;
+        for (int i = 0; i < addedFacultiesCount; i++) {
+            count += faculties[i].getNumberOfMembers(type);
+        }
+        return count;
+    }
 
+    /**
+     * Compare two strings alphabetically
+     *
+     * @param name1 first name
+     * @param name2 second name
+     * @return 0 if the names are equal, a positive number if the first name is greater, a negative number if the second name is greater
+     */
+    public static int compareTo(String name1, String name2) {
+        String[] ukrainianAlphabet = {"А", "Б", "В", "Г", "Ґ", "Д", "Е", "Є", "Ж", "З", "И", "І", "Ї", "Й", "К", "Л", "М", "Н", "О", "П", "Р", "С", "Т", "У", "Ф", "Х", "Ц", "Ч", "Ш", "Щ", "Ю", "Я"};
+        String thisName = name1.toUpperCase().replace("'", "");
+        String otherName = name2.toUpperCase().replace("'", "");
+
+        if (thisName.matches("[A-Z ]+") && otherName.matches("[A-Z ]+")) {
+            return thisName.compareTo(otherName);
+        }
+
+        for (int i = 0; i < Math.min(thisName.length(), otherName.length()); i++) {
+            int thisIndex = Arrays.asList(ukrainianAlphabet).indexOf(String.valueOf(thisName.charAt(i)));
+            int otherIndex = Arrays.asList(ukrainianAlphabet).indexOf(String.valueOf(otherName.charAt(i)));
+            if (thisIndex != otherIndex) {
+                return thisIndex - otherIndex;
+            }
+        }
+        return thisName.length() - otherName.length();
+    }
 }

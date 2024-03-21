@@ -280,4 +280,12 @@ public class Faculty {
         }
         System.out.println(res);
     }
+
+    public int getNumberOfMembers(String type) {
+        int count = 0;
+        for (int i = 0; i < addedDepartmentsCount; i++) {
+            count += departments[i].getNumberOfMembers(type);
+        }
+        return count;
+    }
 }

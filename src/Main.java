@@ -25,6 +25,100 @@ public class Main {
     public static void main(String[] args) {
         University university = createNaUKMA();
         Main main = new Main(university);
+
+        Faculty faculty1 = new Faculty("ФІ", 5);
+        Department department1 = new Department("Кафедра програмування", 10);
+        Department department2 = new Department("Кафедра математики", 5);
+
+        Faculty faculty2 = new Faculty("ФЕН", 3);
+        Department department3 = new Department("Кафедра економіки", 7);
+        Department department4 = new Department("Кафедра менеджменту", 4);
+
+        Faculty faculty3 = new Faculty("ФПН", 4);
+        Department department5 = new Department("Кафедра цивільного права", 6);
+        Department department6 = new Department("Кафедра кримінального права", 3);
+
+        university.addFaculty(faculty1);
+        faculty1.addDepartment(department1);
+        faculty1.addDepartment(department2);
+
+        university.addFaculty(faculty2);
+        faculty2.addDepartment(department3);
+        faculty2.addDepartment(department4);
+
+        university.addFaculty(faculty3);
+        faculty3.addDepartment(department5);
+        faculty3.addDepartment(department6);
+
+        Student student1 = new Student("Іван", "Іванов", 1, 1, faculty1, department1);
+        Student student2 = new Student("Петро", "Петров", 1, 2, faculty1, department1);
+        Student student3 = new Student("Аидор", "Сидоров", 1, 3, faculty1, department1);
+        Student student4 = new Student("Микола", "Миколаєв", 4, 4, faculty1, department2);
+        Student student5 = new Student("Олександр", "Олександров", 5, 5, faculty1, department2);
+        Student student6 = new Student("Андрій", "Андрійов", 6, 6, faculty1, department2);
+
+        Student student7 = new Student("Іван", "Іванов", 2, 1, faculty2, department3);
+        Student student8 = new Student("Петро", "Петров", 1, 2, faculty2, department3);
+        Student student9 = new Student("Сидор", "Сидоров", 3, 3, faculty2, department3);
+        Student student10 = new Student("Микола", "Миколаєв", 4, 4, faculty2, department4);
+        Student student11 = new Student("Олександр", "Олександров", 5, 5, faculty2, department4);
+        Student student12 = new Student("Андрій", "Андрійов", 6, 6, faculty2, department4);
+
+        Student student13 = new Student("Іван", "Іванов", 2, 1, faculty3, department5);
+        Student student14 = new Student("Петро", "Петров", 1, 2, faculty3, department5);
+        Student student15 = new Student("Сидор", "Сидоров", 3, 3, faculty3, department5);
+        Student student16 = new Student("Микола", "Миколаєв", 4, 4, faculty3, department6);
+        Student student17 = new Student("Олександр", "Олександров", 5, 5, faculty3, department6);
+        Student student18 = new Student("Андрій", "Андрійов", 6, 6, faculty3, department6);
+
+        Teacher teacher1 = new Teacher("Василь", "Васильов", faculty1, department1);
+        Teacher teacher2 = new Teacher("Петро", "Петров", faculty1, department1);
+        Teacher teacher3 = new Teacher("Сидор", "Сидоров", faculty1, department2);
+        Teacher teacher4 = new Teacher("Микола", "Миколаєв", faculty1, department2);
+
+        Teacher teacher5 = new Teacher("Василь", "Васильов", faculty2, department3);
+        Teacher teacher6 = new Teacher("Петро", "Петров", faculty2, department3);
+        Teacher teacher7 = new Teacher("Сидор", "Сидоров", faculty2, department4);
+        Teacher teacher8 = new Teacher("Микола", "Миколаєв", faculty2, department4);
+
+        Teacher teacher9 = new Teacher("Василь", "Васильов", faculty3, department5);
+        Teacher teacher10 = new Teacher("Петро", "Петров", faculty3, department5);
+        Teacher teacher11 = new Teacher("Сидор", "Сидоров", faculty3, department6);
+        Teacher teacher12 = new Teacher("Микола", "Миколаєв", faculty3, department6);
+
+        department1.addMember(student1);
+        department1.addMember(student2);
+        department1.addMember(student3);
+        department2.addMember(student4);
+        department2.addMember(student5);
+        department2.addMember(student6);
+        department1.addMember(teacher1);
+        department1.addMember(teacher2);
+        department2.addMember(teacher3);
+        department2.addMember(teacher4);
+
+        department3.addMember(student7);
+        department3.addMember(student8);
+        department3.addMember(student9);
+        department4.addMember(student10);
+        department4.addMember(student11);
+        department4.addMember(student12);
+        department3.addMember(teacher5);
+        department3.addMember(teacher6);
+        department4.addMember(teacher7);
+        department4.addMember(teacher8);
+
+        department5.addMember(student13);
+        department5.addMember(student14);
+        department5.addMember(student15);
+        department6.addMember(student16);
+        department6.addMember(student17);
+        department6.addMember(student18);
+        department5.addMember(teacher9);
+        department5.addMember(teacher10);
+        department6.addMember(teacher11);
+        department6.addMember(teacher12);
+
         main.printHeader();
         main.mainMenuAction();
     }
@@ -674,7 +768,7 @@ public class Main {
                 break;
             case 3:
                 if (university.getAddedFacultiesCount() <= 0) {
-                    System.out.println("початку створіть факультети");
+                    System.out.println("Спочатку створіть факультети");
                 } else {
                     System.out.println("Наявні факультети:");
                     university.printAllFaculties();
@@ -687,7 +781,7 @@ public class Main {
                     if (university.getFaculty(facultyName) == null) {
                         System.out.print("Факультет з такою назвою не існує");
                     } else {
-                        university.printAllStudentsAlphabetically(university.getFaculty(facultyName).getName());
+                        university.printAllTeachersAlphabetically(university.getFaculty(facultyName).getName());
                     }
                 }
                 informationMenuAction();

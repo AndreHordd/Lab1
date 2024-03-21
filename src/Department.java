@@ -426,4 +426,56 @@ public class Department {
         }
         return null;
     }
+
+    public int getNumberOfMembers(String type) {
+        int count = 0;
+        for (int i = 0; i < addedMembersCount; i++) {
+            if (members[i].getPersonType().equals(type)) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public int getAddedStudentsCount() {
+        int studentsCount = 0;
+        for (int i = 0; i < addedMembersCount; i++) {
+            if (members[i].getPersonType().equals("Student")) {
+                studentsCount++;
+            }
+        }
+        return studentsCount;
+    }
+
+    public int getAddedTeachersCount() {
+        int teachersCount = 0;
+        for (int i = 0; i < addedMembersCount; i++) {
+            if (members[i].getPersonType().equals("Teacher")) {
+                teachersCount++;
+            }
+        }
+        return teachersCount;
+    }
+
+    public Student[] getStudents() {
+        Student[] students = new Student[getAddedStudentsCount()];
+        int studentsCount = 0;
+        for (int i = 0; i < addedMembersCount; i++) {
+            if (members[i].getPersonType().equals("Student")) {
+                students[studentsCount++] = (Student) members[i];
+            }
+        }
+        return students;
+    }
+
+    public Teacher[] getTeachers() {
+        Teacher[] teachers = new Teacher[getAddedTeachersCount()];
+        int teachersCount = 0;
+        for (int i = 0; i < addedMembersCount; i++) {
+            if (members[i].getPersonType().equals("Teacher")) {
+                teachers[teachersCount++] = (Teacher) members[i];
+            }
+        }
+        return teachers;
+    }
 }
